@@ -36,11 +36,49 @@ class _MyHomePageState extends State<MyHomePage> {
 
   double _damage = 0;
   double _ignoreValue = 0.5;
-  double _mobGuard = 0.5;
+  double _mobGuard = 3;
   double _pressureValue = 0.3;
   bool _isCoreUpgrade = false;
   bool _isPressure = false;
   bool _isPressureEnhance = false;
+
+  final List<DropdownMenuItem<double>> _mobList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setMobList();
+    _mobGuard = _mobList[0].value!;
+  }
+
+  void setMobList() {
+    _mobList
+      ..add(createItem('防御率 300% の MOB', 3.0))
+      ..add(createItem('カオスピンクビーン', 1.8))
+      ..add(createItem('カオスピンクビーンの石像', 1.6))
+      ..add(createItem('ハードマグナス', 1.2))
+      ..add(createItem('ノーマルシグナス', 1.0))
+      ..add(createItem('アカイラム', 0.9))
+      ..add(createItem('カオスピエール', 0.8))
+      ..add(createItem('ノーマルマグナス', 0.5))
+      ..add(createItem('カオスホーンテイル', 0.25));
+  }
+
+  DropdownMenuItem<double> createItem(String mob, double guard) {
+    int viewGuard = guard * 100 as int;
+    String viewDisplay = '$mob （$viewGuard %）';
+
+    if (guard == 3) {
+      viewDisplay = mob;
+    }
+    return DropdownMenuItem(
+      child: Text(
+        viewDisplay,
+        style: const TextStyle(fontSize: 18.0),
+      ),
+      value: guard,
+    );
+  }
 
   void _damageCalc(String ignoreValue) {
     // 入力値が空欄の場合、0 として扱う
@@ -86,6 +124,16 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              DropdownButton(
+                items: _mobList,
+                value: _mobGuard,
+                onChanged: (value) => {
+                  setState(() {
+                    _mobGuard = value as double;
+                    _damageCalc(_ignoreValueController.text);
+                  }),
+                },
+              ),
               CheckboxListTile(
                   value: _isCoreUpgrade,
                   title: const Text('強化コアの防御率無視20%増加'),
