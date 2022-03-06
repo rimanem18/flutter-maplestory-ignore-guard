@@ -124,15 +124,27 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              DropdownButton(
-                items: _mobList,
-                value: _mobGuard,
-                onChanged: (value) => {
-                  setState(() {
-                    _mobGuard = value as double;
-                    _damageCalc(_ignoreValueController.text);
-                  }),
-                },
+              SizedBox(
+                width: 380,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.security),
+                    ),
+                    DropdownButton(
+                      items: _mobList,
+                      value: _mobGuard,
+                      onChanged: (value) => {
+                        setState(() {
+                          _mobGuard = value as double;
+                          _damageCalc(_ignoreValueController.text);
+                        }),
+                      },
+                    ),
+                  ],
+                ),
               ),
               CheckboxListTile(
                   value: _isCoreUpgrade,
@@ -161,7 +173,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   }),
               CheckboxListTile(
                   value: _isPressureEnhance,
-                  title: const Text('ハイパースキル プレッシャー - エンハンス'),
+                  title: Row(
+                    children: const <Widget>[
+                      Text('プレッシャー - エンハンス'),
+                      Icon(Icons.h_plus_mobiledata),
+                    ],
+                  ),
                   controlAffinity: ListTileControlAffinity.leading,
                   onChanged: (value) {
                     setState(() {
@@ -183,6 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.admin_panel_settings),
                           suffixText: '%',
                           label: Text(
                             '自分の防御率無視',
@@ -197,7 +215,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Text(
-                '防御率 $_mobGuard の敵に通るダメージ',
+                '通るダメージ',
+                style: Theme.of(context).textTheme.headline5,
               ),
               Text(
                 '$_damage %',
