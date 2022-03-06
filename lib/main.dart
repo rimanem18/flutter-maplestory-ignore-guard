@@ -120,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: SizedBox(
-          width: 390,
+          width: 410,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -221,6 +221,13 @@ class _MyHomePageState extends State<MyHomePage> {
               Text(
                 '$_damage %',
                 style: Theme.of(context).textTheme.headline4,
+              ),
+              const Card(
+                child: ListTile(
+                  contentPadding: EdgeInsets.all(20.0),
+                  title: Text(
+                      '通るダメージは切り捨てで計算しており、実際のダメージと異なる場合があります。\nこのツールは MapleStory プレイヤーのひとりに過ぎない一個人が開発したものであり、MapleStory を運営している NEXON とは無関係です。\n利用によって何かしらの損害が生じても、いかなる責任も負いません。'),
+                ),
               ),
             ],
           ),
