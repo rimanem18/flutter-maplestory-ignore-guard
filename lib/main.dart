@@ -228,6 +228,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       '通るダメージは切り捨てで計算しており、実際のダメージと異なる場合があります。\nこのツールは MapleStory プレイヤーのひとりに過ぎない一個人が開発したものであり、MapleStory を運営している NEXON とは無関係です。\n利用によって何かしらの損害が生じても、いかなる責任も負いません。'),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  Icon(Icons.copyright_outlined),
+                  Text(' 2020 Rimane.'),
+                ],
+              ),
             ],
           ),
         ),
