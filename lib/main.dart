@@ -33,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _ignoreValueController = TextEditingController();
+  late TextEditingController _ignoreValueController = TextEditingController();
 
   double _damage = 0;
   double _ignoreValue = 0.5;
@@ -49,7 +49,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     setMobList();
+    setIgnoreValue();
     _mobGuard = _mobList[0].value!;
+  }
+
+  void setIgnoreValue() {
+    _ignoreValueController = TextEditingController(text: '0');
   }
 
   void setMobList() {
@@ -121,10 +126,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 980),
+          constraints: const BoxConstraints(maxWidth: 700),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Text(
+                '攻撃対象',
+                style: TextStyle(fontSize: 22, color: Colors.blue),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -189,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   }),
               Container(
                 padding: const EdgeInsets.all(8.0),
+                width: 200,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -206,19 +216,26 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         onChanged: (ignoreValue) => _damageCalc(ignoreValue),
-                        style: Theme.of(context).textTheme.headline4,
+                        style: const TextStyle(fontSize: 30),
                       ),
                     ),
                   ],
                 ),
               ),
-              Text(
-                '通るダメージ',
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              Text(
-                '$_damage %',
-                style: Theme.of(context).textTheme.headline4,
+              Container(
+                padding: EdgeInsets.all(15.0),
+                child: Column(
+                  children: <Widget>[
+                    const Text(
+                      '対象に通るダメージ',
+                      style: TextStyle(fontSize: 22, color: Colors.blue),
+                    ),
+                    Text(
+                      '$_damage %',
+                      style: const TextStyle(fontSize: 26),
+                    ),
+                  ],
+                ),
               ),
               const Card(
                 child: ListTile(
