@@ -120,32 +120,29 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: SizedBox(
-          width: 410,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 980),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
-                width: 380,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.security),
-                    ),
-                    DropdownButton(
-                      items: _mobList,
-                      value: _mobGuard,
-                      onChanged: (value) => {
-                        setState(() {
-                          _mobGuard = value as double;
-                          _damageCalc(_ignoreValueController.text);
-                        }),
-                      },
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.security),
+                  ),
+                  DropdownButton(
+                    items: _mobList,
+                    value: _mobGuard,
+                    onChanged: (value) => {
+                      setState(() {
+                        _mobGuard = value as double;
+                        _damageCalc(_ignoreValueController.text);
+                      }),
+                    },
+                  ),
+                ],
               ),
               CheckboxListTile(
                   value: _isCoreUpgrade,
