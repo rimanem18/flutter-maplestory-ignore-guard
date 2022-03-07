@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   DropdownMenuItem<double> createItem(String mob, double guard) {
-    num viewGuard = (guard * 100);
+    num viewGuard = (guard * 100).floor();
     String viewDisplay = '$mob （$viewGuard %）';
 
     if (guard == 3) {
