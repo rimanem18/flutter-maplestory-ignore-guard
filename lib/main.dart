@@ -35,10 +35,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController _ignoreValueController = TextEditingController();
 
-  double _damage = 0;
-  double _ignoreValue = 0.5;
-  double _mobGuard = 3;
-  double _pressureValue = 0.3;
+  num _damage = 0;
+  num _ignoreValue = 0.5;
+  num _mobGuard = 3;
+  num _pressureValue = 0.3;
   bool _isCoreUpgrade = false;
   bool _isPressure = false;
   bool _isPressureEnhance = false;
@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   DropdownMenuItem<double> createItem(String mob, double guard) {
-    int viewGuard = guard * 100 as int;
+    num viewGuard = (guard * 100);
     String viewDisplay = '$mob （$viewGuard %）';
 
     if (guard == 3) {
@@ -93,28 +93,28 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       _ignoreValue = double.parse(ignoreValue) / 100;
     }
+    num damage = 0;
 
-    double mobGuard = _mobGuard;
+    num mobGuard = _mobGuard;
     if (_isPressure) {
       mobGuard = mobGuard - _pressureValue;
     }
 
     // 与えられるダメージ
     if (_isCoreUpgrade) {
-      _damage = 1 - mobGuard * (1 - _ignoreValue) * (1 - 0.2);
+      damage = 1 - mobGuard * (1 - _ignoreValue) * (1 - 0.2);
     } else {
-      _damage = 1 - mobGuard * (1 - _ignoreValue);
+      damage = 1 - mobGuard * (1 - _ignoreValue);
     }
 
     // 計算結果がマイナスなら0
-    if (_damage * 100 < 0) {
-      _damage = 0;
+    if (damage * 100 < 0) {
+      damage = 0;
     }
-    // 計算結果を切り捨ててセット
-    _damage = _damage * 100;
 
     setState(() {
-      _damage = _damage.floor() as double;
+      // 計算結果を切り捨ててセット
+      _damage = (damage * 100).floor();
     });
   }
 
@@ -127,12 +127,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 700),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
             children: <Widget>[
-              const Text(
-                '攻撃対象',
-                style: TextStyle(fontSize: 22, color: Colors.blue),
+              const Center(
+                child: Text(
+                  '攻撃対象',
+                  style: TextStyle(fontSize: 22, color: Colors.blue),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     value: _mobGuard,
                     onChanged: (value) => {
                       setState(() {
-                        _mobGuard = value as double;
+                        _mobGuard = value as num;
                         _damageCalc(_ignoreValueController.text);
                       }),
                     },
@@ -223,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: <Widget>[
                     const Text(
