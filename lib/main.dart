@@ -96,9 +96,15 @@ class _MyHomePageState extends State<MyHomePage> {
     num damage = 0;
 
     num mobGuard = _mobGuard;
-    if (_isPressure) {
-      mobGuard = mobGuard - _pressureValue;
+    if (_isPressure && _isPressureEnhance) {
+      _pressureValue = 0.5;
+    } else if (_isPressure) {
+      _pressureValue = 0.3;
+    } else {
+      _pressureValue = 0;
     }
+
+    mobGuard = mobGuard - _pressureValue;
 
     // 与えられるダメージ
     if (_isCoreUpgrade) {
@@ -174,7 +180,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       if (value != null) {
                         _isPressure = value;
-                        _pressureValue = 0.3;
+                        if (value == false) {
+                          _isPressureEnhance = false;
+                        }
                         _damageCalc(_ignoreValueController.text);
                       }
                     });
@@ -192,7 +200,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       if (value != null) {
                         _isPressureEnhance = value;
-                        _pressureValue = 0.5;
                         _damageCalc(_ignoreValueController.text);
                       }
                     });
