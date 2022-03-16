@@ -134,6 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 700),
           child: ListView(
+            padding: const EdgeInsets.all(15.0),
             children: <Widget>[
               const Center(
                 child: Text(
