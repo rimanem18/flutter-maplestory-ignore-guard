@@ -14,7 +14,7 @@ jobs:
       # Flutter をインストールしてパスを通したあと、
       # パッケージをダウンロード
       - name: Setup Flutter
-      run: |
+        run: |
         git clone https://github.com/flutter/flutter.git
         echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
         flutter pub get
