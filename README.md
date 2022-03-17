@@ -1,8 +1,8 @@
 # メイプルストーリー防御率無視計算ツール
 オンラインゲーム「MapleStory」に登場する MOB に与えられるダメージを計算するツールです。
 
-以前 Gulp + TypeScript で作成した計算ツールの Flutter 版
-https://github.com/rimanem18/maplestory-ignore-guard
+以前 Gulp + TypeScript で作成した計算ツールの Flutter 版  
+[Gulp + TypeScript 版](https://github.com/rimanem18/maplestory-ignore-guard)
 
 ## ツール概要
 
