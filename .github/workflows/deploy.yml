@@ -1,0 +1,33 @@
+name: Build Flutter on S3
+
+on:
+  push:
+      branches:
+        - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      # Flutter をインストールしてパスを通したあと、
+      # パッケージをダウンロード
+      - name: Setup Flutter
+        run:  |
+        git clone https://github.com/flutter/flutter.git
+        echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
+        flutter pub get
+
+      # WEB 用にビルド
+      - name: Build
+        run: flutter build web
+
+      # S3にデプロイ
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_BUCKET_NAME: ${{secrets.AWS_BUCKET_NAME}}
+        run: |　
+          aws s3 cp --recursive --region ap-northeast-1 web s3://${AWS_BUCKET_NAME}
